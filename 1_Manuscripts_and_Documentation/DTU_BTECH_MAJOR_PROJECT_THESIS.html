@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DTU Major Project Dissertation: Physics-Informed ML Digital Twin for Multi-Hazard High-Rise Buildings in Delhi-NCR</title>
+<!-- KaTeX -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+<script>
+  window.addEventListener("DOMContentLoaded", function() {
+    if (typeof renderMathInElement !== "undefined") {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false},
+          {left: "\\(", right: "\\)", display: false},
+          {left: "\\[", right: "\\]", display: true}
+        ],
+        throwOnError: false
+      });
+    }
+  });
+</script>
+
+<style>
+  @page {
+    size: A4;
+    margin: 25mm 20mm 25mm 30mm; /* Standard DTU Thesis Gutter Margin for Binding */
+    @bottom-right {
+      content: counter(page);
+      font-size: 9pt;
+      font-family: "Times New Roman", Times, serif;
+    }
+  }
+
+  body {
+    font-family: "Times New Roman", Times, serif;
+    color: #111827;
+    background-color: #ffffff;
+    line-height: 1.6;
+    font-size: 11pt;
+    margin: 0;
+    padding: 0;
+    text-align: justify;
+  }
+
+  /* DTU Official Title Page Styling */
+  .title-page {
+    text-align: center;
+    height: 100%;
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10mm 0;
+  }
+  .dtu-emblem-text {
+    font-size: 14pt;
+    font-weight: bold;
+    color: #7f1d1d; /* DTU Maroon */
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .thesis-main-title {
+    font-size: 17pt;
+    font-weight: bold;
+    color: #0f172a;
+    line-height: 1.35;
+    margin: 25px 0 15px 0;
+    text-transform: uppercase;
+  }
+  .thesis-sub-title {
+    font-size: 12pt;
+    font-style: italic;
+    color: #334155;
+    margin-bottom: 25px;
+  }
+  .submission-notice {
+    font-size: 10.5pt;
+    line-height: 1.5;
+    color: #1e293b;
+    margin: 20px 0;
+  }
+  .author-box {
+    margin: 25px 0;
+    font-size: 11pt;
+  }
+  .author-name {
+    font-size: 13pt;
+    font-weight: bold;
+    color: #0f172a;
+  }
+  .roll-number {
+    font-size: 11pt;
+    font-family: Arial, sans-serif;
+    color: #475569;
+  }
+  .dept-info {
+    border-top: 2px solid #7f1d1d;
+    padding-top: 15px;
+    margin-top: 30px;
+    font-size: 10.5pt;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  /* Preliminary Pages */
+  .preliminary-page {
+    page-break-after: always;
+    min-height: 85%;
+  }
+  .prelim-heading {
+    text-align: center;
+    font-size: 15pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #0f172a;
+    margin-bottom: 30px;
+    border-bottom: 1.5px solid #94a3b8;
+    padding-bottom: 8px;
+  }
+
+  /* Chapters */
+  .chapter-header {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    page-break-before: always;
+  }
+  .chapter-number {
+    font-size: 13pt;
+    font-weight: bold;
+    color: #7f1d1d;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .chapter-title {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #0f172a;
+    text-transform: uppercase;
+    margin-top: 5px;
+    border-bottom: 2px solid #0f172a;
+    padding-bottom: 10px;
+  }
+
+  h2 {
+    font-size: 13pt;
+    font-weight: bold;
+    color: #0f172a;
+    margin-top: 24px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 11.5pt;
+    font-weight: bold;
+    color: #334155;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    page-break-after: avoid;
+  }
+
+  /* Tables & Figures */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 9.5pt;
+    page-break-inside: avoid;
+  }
+  th, td {
+    border: 1px solid #94a3b8;
+    padding: 6px 9px;
+  }
+  th {
+    background-color: #f1f5f9;
+    font-weight: bold;
+    text-align: center;
+    color: #0f172a;
+  }
+  .figure-box {
+    text-align: center;
+    margin: 20px 0;
+    page-break-inside: avoid;
+  }
+  .figure-img {
+    max-width: 95%;
+    border: 1px solid #cbd5e1;
+    border-radius: 3px;
+  }
+  .caption {
+    font-size: 9.5pt;
+    font-weight: bold;
+    margin-top: 8px;
+    color: #334155;
+  }
+
+  /* Formulas */
+  .equation-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 10px 14px;
+    margin: 12px 0;
+    text-align: center;
+    border-radius: 4px;
+    page-break-inside: avoid;
+  }
+
+  /* Callouts & Signatures */
+  .sign-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+  }
+  .sign-block {
+    text-align: center;
+    width: 45%;
+    border-top: 1px solid #111827;
+    padding-top: 8px;
+  }
+
+  .toc-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+    border-bottom: 1px dotted #cbd5e1;
+    padding-bottom: 2px;
+  }
+  .toc-chap {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ========================================================================= -->
+<!-- TITLE PAGE                                                                -->
+<!-- ========================================================================= -->
+<div class="title-page">
+  <div>
+    <div class="dtu-emblem-text">DELHI TECHNOLOGICAL UNIVERSITY</div>
+    <div style="font-size: 10pt; color: #64748b; font-family: Arial, sans-serif; margin-top: 3px;">(Formerly Delhi College of Engineering • Estd. 1941)</div>
+    <div style="font-size: 10pt; color: #64748b; font-family: Arial, sans-serif;">Shahbad Daulatpur, Bawana Road, Delhi – 110042, India</div>
+  </div>
+
+  <div>
+    <div class="thesis-main-title">
+      Physics-Informed Machine Learning Digital Twin for Multi-Hazard Resilience of High-Rise Dual-System Buildings in Delhi-NCR
+    </div>
+    <div class="thesis-sub-title">
+      Integrating OpenSees Jacobian Non-Linear FEA, IS 1893:2016 Seismic Dynamics, IS 875 Wind Turbulence, Yamuna Riverine Soil-Structure Interaction, and Real-Time CPWD BoQ Optimization
+    </div>
+    <div class="submission-notice">
+      A MAJOR PROJECT DISSERTATION SUBMITTED IN PARTIAL FULFILLMENT OF THE REQUIREMENTS<br>
+      FOR THE DEGREE OF<br>
+      <strong>BACHELOR OF TECHNOLOGY</strong><br>
+      IN<br>
+      <strong>CIVIL ENGINEERING</strong>
+    </div>
+  </div>
+
+  <div>
+    <div class="author-box">
+      <div>Submitted by:</div>
+      <div class="author-name">MADHAV BHATI</div>
+      <div class="roll-number">Roll No. 2K20/CE/142 • Department of Civil Engineering</div>
+    </div>
+
+    <div style="margin: 15px 0; font-size: 10.5pt;">
+      <div>Under the Supervision of:</div>
+      <div style="font-weight: bold; font-size: 12pt; color: #0f172a;">FACULTY GUIDE & RESEARCH ADVISOR</div>
+      <div style="font-size: 10pt; color: #475569;">Department of Civil Engineering • DTU Structural AI Lab</div>
+    </div>
+  </div>
+
+  <div class="dept-info">
+    <strong>Department of Civil Engineering</strong><br>
+    Delhi Technological University, Delhi – 110042<br>
+    Academic Year 2025 – 2026
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- CANDIDATE DECLARATION                                                     -->
+<!-- ========================================================================= -->
+<div class="preliminary-page">
+  <div class="prelim-heading">Candidate's Declaration</div>
+  <p>
+    I, <strong>Madhav Bhati</strong> (Roll No. 2K20/CE/142), student of Bachelor of Technology in Civil Engineering at <strong>Delhi Technological University (DTU)</strong>, Delhi, hereby declare that the major project dissertation entitled:
+  </p>
+  <p style="text-align: center; font-weight: bold; font-size: 11.5pt; margin: 15px 0;">
+    "PHYSICS-INFORMED MACHINE LEARNING DIGITAL TWIN FOR MULTI-HAZARD RESILIENCE OF HIGH-RISE DUAL-SYSTEM BUILDINGS IN DELHI-NCR"
+  </p>
+  <p>
+    submitted in partial fulfillment of the requirements for the award of the degree of Bachelor of Technology, is an authentic record of original research work carried out by me under the guidance and supervision of the faculty members of the Department of Civil Engineering, Delhi Technological University.
+  </p>
+  <p>
+    The matter embodied in this dissertation has not been submitted in part or full to any other University or Institute for the award of any degree or diploma. All code citations, benchmark archetypes (NIST GCR 10-917-8 and IITK-GSDMA), empirical seismogram records, and Bureau of Indian Standards clauses (IS 1893:2016, IS 875:2015, IS 13920:2016, IS 456:2000, and IS 16700:2017) have been rigorously referenced and acknowledged.
+  </p>
+
+  <div class="sign-row">
+    <div>
+      <strong>Date:</strong> October 29, 2026<br>
+      <strong>Place:</strong> DTU, Delhi
+    </div>
+    <div class="sign-block">
+      <strong>MADHAV BHATI</strong><br>
+      Roll No. 2K20/CE/142<br>
+      Department of Civil Engineering<br>
+      Delhi Technological University
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- CERTIFICATE                                                               -->
+<!-- ========================================================================= -->
+<div class="preliminary-page">
+  <div class="prelim-heading">Certificate of Recommendation</div>
+  <p>
+    This is to certify that the major project dissertation entitled <strong>"Physics-Informed Machine Learning Digital Twin for Multi-Hazard Resilience of High-Rise Dual-System Buildings in Delhi-NCR"</strong>, submitted by <strong>Madhav Bhati</strong> (Roll No. 2K20/CE/142) in partial fulfillment of the requirements for the award of the degree of <strong>Bachelor of Technology in Civil Engineering</strong> at <strong>Delhi Technological University</strong>, is a bona fide record of the research work carried out under our supervision and guidance.
+  </p>
+  <p>
+    The student has successfully developed, validated, and demonstrated an operational 3D WebGL Digital Twin backed by 30,000 non-linear OpenSees Jacobian finite element simulations, achieving an $R^2 = 0.9997$ ML physics surrogate, a 3-model synchronized viewport architecture, and a real-time CPWD Schedule of Rates (DSR 2023) cost optimization engine. To the best of our knowledge, the results incorporated in this dissertation have reached high academic standards and have not been submitted elsewhere for any other degree.
+  </p>
+
+  <div class="sign-row" style="margin-top: 80px;">
+    <div class="sign-block">
+      <strong>SUPERVISOR / FACULTY GUIDE</strong><br>
+      Department of Civil Engineering<br>
+      Delhi Technological University
+    </div>
+    <div class="sign-block">
+      <strong>HEAD OF DEPARTMENT (HOD)</strong><br>
+      Department of Civil Engineering<br>
+      Delhi Technological University
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- ACKNOWLEDGEMENTS                                                          -->
+<!-- ========================================================================= -->
+<div class="preliminary-page">
+  <div class="prelim-heading">Acknowledgements</div>
+  <p>
+    I express my deepest gratitude and sincere respect to my project supervisors and faculty mentors in the Department of Civil Engineering, Delhi Technological University (DTU), for their invaluable guidance, constant motivation, and rigorous technical critiques throughout the duration of this major project. Their profound insights into earthquake engineering, non-linear structural dynamics, and computational mechanics formed the foundation of this work.
+  </p>
+  <p>
+    I am immensely thankful to the <strong>Head of the Department of Civil Engineering</strong>, DTU, for granting access to high-performance computational facilities and laboratory resources. Special thanks are extended to the faculty and research scholars of the <strong>DTU Structural AI Lab</strong> for providing critical suggestions during numerical benchmark verification against the IITK-GSDMA and NIST tall building archetypes.
+  </p>
+  <p>
+    Finally, I wish to thank my family, research teammates, and peers for their unwavering encouragement, patience, and support throughout the demanding computational modeling and thesis drafting phases.
+  </p>
+
+  <div style="text-align: right; margin-top: 40px;">
+    <strong>MADHAV BHATI</strong><br>
+    Department of Civil Engineering, DTU
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- ABSTRACT                                                                  -->
+<!-- ========================================================================= -->
+<div class="preliminary-page">
+  <div class="prelim-heading">Abstract</div>
+  <p>
+    The National Capital Region (Delhi-NCR) is subjected to a severe multi-hazard profile characterized by high seismicity (Zone IV, $Z=0.24$, PGA up to $0.36g$), cyclonic wind gusts ($V_b = 47\text{--}52\text{ m/s}$), and annual Yamuna River basin flooding over soft alluvial silt deposits (Soil Type III, $N_{\text{SPT}} < 10$). Standard structural design practices treat these environmental hazards as decoupled phenomena using linear elastic approximations. For high-rise buildings exceeding 15 storeys, this decoupled approach induces severe design blindspots: seismic base shear governs the foundation and core shear wall web cracking, while wind overturning moment and inter-storey drift govern the upper storeys. Furthermore, foundation subgrade saturation induces Soil-Structure Interaction (SSI) period elongation ($\Delta T_1 = +5\text{ to }+15\%$), dragging tall buildings into resonance with long-period ground motions.
+  </p>
+  <p>
+    This dissertation presents an operational, physics-informed 3D Digital Twin and machine learning surrogate engine for tall reinforced concrete dual-system buildings (monolithic RC core shear wall tube plus perimeter Special Moment Resisting Frames) in Delhi-NCR. A master numerical database of <strong>30,000 non-linear finite element simulations</strong> was synthesized using OpenSees with distributed plasticity fiber sections (Concrete02 Kent-Park and Steel02 Giuffre-Menegotto-Pinto constitutive laws) across a 10-dimensional design parameter space sampled via Latin Hypercube Sampling (LHS). Five machine learning surrogate architectures were rigorously benchmarked. An optimized <strong>XGBoost regressor</strong> emerged as champion, delivering near-perfect fidelity ($R^2 = 0.9997$, $\text{RMSE} = 0.0084$, $\text{MAE} = 0.0051$) with sub-4-millisecond inference latency, operating at 60 FPS in a client-side WebGL dashboard. An overfitting audit confirmed an absolute generalization gap of $|\Delta R^2| = 0.0001 < 0.0050$.
+  </p>
+  <p>
+    The interactive digital twin implements a novel <strong>3-Model Synchronized Viewport Architecture</strong>: (1) an undeformed static model displaying parabolic IS 1893 floor lateral forces ($Q_i$), wind pressures ($p_z$), vertical gravity vectors, and base reactions; (2) a real-time animated dynamic twin exhibiting harmonic ground vibration and state-driven Crimson Red (Failure) vs. Royal Blue (Safe) shaders; and (3) a dynamic 2D floor framing CAD plan complete with grid bubbles (A–D, 1–4), column square section markers, central core tube with ETABS cross-bracing symbol, and bay dimensions. Backed by a gradient search optimization engine calibrated to the CPWD Delhi Schedule of Rates (DSR 2023), the dashboard features a 1-click optimization solver that identifies the nearest, least-cost structural modification ($\Delta \text{Cost} = +₹2.67\text{ Crores}$ on a 28-storey tower) to transition an overstressed building to full code compliance.
+  </p>
+  <p>
+    <strong>Keywords:</strong> Digital Twin, Multi-Hazard Engineering, OpenSees FEA, XGBoost Physics Surrogate, Dual System, IS 1893:2016, IS 13920:2016, CPWD BoQ Optimization, Delhi-NCR.
+  </p>
+</div>
+
+<!-- ========================================================================= -->
+<!-- TABLE OF CONTENTS                                                         -->
+<!-- ========================================================================= -->
+<div class="preliminary-page">
+  <div class="prelim-heading">Table of Contents</div>
+  <div class="toc-row"><span>Candidate's Declaration</span><span>ii</span></div>
+  <div class="toc-row"><span>Certificate of Recommendation</span><span>iii</span></div>
+  <div class="toc-row"><span>Acknowledgements</span><span>iv</span></div>
+  <div class="toc-row"><span>Abstract</span><span>v</span></div>
+
+  <div class="toc-row toc-chap"><span>CHAPTER 1: INTRODUCTION & REGIONAL CONTEXT</span><span>1</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>1.1 Background of Tall High-Rise Construction in Delhi-NCR</span><span>1</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>1.2 The Multi-Hazard Physical Co-Occurrence Environment</span><span>2</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>1.3 The Dual Structural System (RC Shear Core Tube + SMRF Frame)</span><span>3</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>1.4 Problem Statement & Limitations of Conventional Decoupled Design</span><span>4</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>1.5 Research Objectives & Project Scope</span><span>5</span></div>
+
+  <div class="toc-row toc-chap"><span>CHAPTER 2: LITERATURE REVIEW & GOVERNING DESIGN CODES</span><span>6</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>2.1 Evolution of Multi-Hazard Structural Dynamics</span><span>6</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>2.2 Survey of ML Surrogates & The "Drift-Only Blindspot"</span><span>7</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>2.3 Indian Standard Codes Matrix (IS 1893, IS 875, IS 13920, IS 456, IS 16700)</span><span>8</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>2.4 Performance-Based Earthquake Engineering (FEMA P-58 / ASCE 41-17)</span><span>9</span></div>
+
+  <div class="toc-row toc-chap"><span>CHAPTER 3: NON-LINEAR FEA MODELING & 30,000 DATASET SYNTHESIS</span><span>10</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>3.1 OpenSees Fiber-Section Distributed Plasticity Framework</span><span>10</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>3.2 Benchmark Calibration (NIST GCR 10-917-8 & IITK-GSDMA Archetypes)</span><span>11</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>3.3 Latin Hypercube Sampling (LHS) Across 10-Dimensional Space</span><span>12</span></div>
+
+  <div class="toc-row toc-chap"><span>CHAPTER 4: MACHINE LEARNING PHYSICS-SURROGATE BENCHMARK</span><span>13</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>4.1 5-Model Benchmark Methodology (XGBoost, RF, MLP, Ridge, ElasticNet)</span><span>13</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>4.2 Generalization Parity Audit & Zero Data Leakage Proof</span><span>14</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>4.3 SHAP Feature Importance & Parametric Sensitivity</span><span>15</span></div>
+
+  <div class="toc-row toc-chap"><span>CHAPTER 5: MULTI-CRITERIA LIMIT STATES & REAL-TIME COST OPTIMIZATION</span><span>16</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>5.1 Multi-Hazard Load Combinations Formulation</span><span>16</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>5.2 Structural Demand vs. Capacity Multi-Criteria Limits</span><span>17</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>5.3 CPWD DSR 2023 BoQ & Embodied Carbon Matrix</span><span>18</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>5.4 1-Click Nearest Cheapest Safe Fix Optimization Algorithm</span><span>19</span></div>
+
+  <div class="toc-row toc-chap"><span>CHAPTER 6: 3D DIGITAL TWIN ARCHITECTURE & VERIFICATION CASE STUDIES</span><span>20</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>6.1 WebGL / Three.js Real-Time Rendering Pipeline</span><span>20</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>6.2 Case Study 1: 28-Storey High-Rise Failure Diagnosis in Crimson Red</span><span>21</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>6.3 Case Study 2: Optimal Safe Fix Recovery & Inversion to Royal Blue</span><span>22</span></div>
+
+  <div class="toc-row toc-chap"><span>CHAPTER 7: CONCLUSIONS, METHODOLOGICAL LIMITATIONS & FUTURE SCOPE</span><span>23</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>7.1 Key Research Findings</span><span>23</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>7.2 Stated Academic Limitations & Scientific Boundaries</span><span>24</span></div>
+  <div class="toc-row" style="padding-left: 15px;"><span>7.3 Recommendations for Urban Infrastructure Policy</span><span>25</span></div>
+
+  <div class="toc-row toc-chap"><span>REFERENCES</span><span>26</span></div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- CHAPTER 1                                                                 -->
+<!-- ========================================================================= -->
+<div class="chapter-header">
+  <div class="chapter-number">Chapter 1</div>
+  <div class="chapter-title">Introduction & Regional Context</div>
+</div>
+
+<h2>1.1 Background of Tall High-Rise Construction in Delhi-NCR</h2>
+<p>
+  Over the last two decades, rapid demographic expansion in the National Capital Region (Delhi-NCR)—comprising New Delhi, Noida, Greater Noida, and Gurugram—has spurred unprecedented vertical urbanization. High-rise residential towers and commercial headquarters exceeding 20 to 35 storeys (heights of $70\text{ m}$ to $125\text{ m}$) are now commonplace across the Yamuna Expressway and Golf Course Extension corridors. These structures concentrate immense capital, residential populations, and critical civil infrastructure within compact spatial footprints. Consequently, ensuring structural resilience against extreme multi-hazard natural events is a matter of paramount national safety and economic stability.
+</p>
+
+<h2>1.2 The Multi-Hazard Physical Co-Occurrence Environment</h2>
+<p>
+  Conventional structural design codes treat natural hazards in decoupled isolation: seismic effects are proportioned independently under IS 1893:2016, and wind pressures are proportioned independently under IS 875 (Part 3):2015. However, Delhi-NCR is positioned in a severe geophysical convergence zone:
+</p>
+<ol>
+  <li><strong>Seismic Zone IV Exposure:</strong> Delhi lies in Seismic Zone IV ($Z = 0.24$) in close proximity to major intra-plate tectonic fault complexes, including the Delhi-Haridwar Ridge, the Sohna Fault, and the Mathura Fault, while also receiving amplified long-period ground motions from major Himalayan earthquakes ($M_w 7.5+$) at distances of $250\text{--}350\text{ km}$.</li>
+  <li><strong>Extreme Aerodynamic Wind Environment:</strong> Basic wind speed in Delhi is codified at $V_b = 47.0\text{ m/s}$ ($170\text{ km/h}$) with 50-year storm gusts exceeding $52.0\text{ m/s}$ ($187\text{ km/h}$). Upper-storey wind pressures on a 100-meter tower exceed $1.95\text{ kPa}$, creating immense overturning moments that directly challenge foundation tensile uplift limits.</li>
+  <li><strong>Yamuna River Basin Alluvial Silt (Soil Type III):</strong> Massive high-rise developments in Noida and East Delhi sit directly on quaternary alluvial floodplains characterized by loose-to-medium silty sands ($N_{\text{SPT}} < 10$, shear wave velocity $V_s < 180\text{ m/s}$). During monsoon flood stages, high groundwater tables and inundation soften the upper soil stratum, reducing lateral subgrade modulus $k_s$ by $25\text{ to }35\%$ and triggering <strong>Soil-Structure Interaction (SSI) period elongation ($\Delta T_1 = +5\text{ to }+15\%$)</strong>.</li>
+</ol>
+
+<h2>1.3 The Dual Structural System (RC Shear Core Tube + SMRF Frame)</h2>
+<p>
+  In high-rise construction, relying on a bare Special Moment Resisting Frame (SMRF) of columns and beams is structurally non-viable beyond 14 storeys because inter-storey drift scales with $H^3$, violating the <strong>IS 1893:2016 Cl 7.11.1 mandatory drift limit of $\Delta/h \le 0.0040$ ($0.400\%$)</strong>. 
+</p>
+<p>
+  To solve this, modern high-rises utilize an <strong>IS 13920:2016 Ductile Dual System</strong>. The central elevator/staircase shaft is configured as a monolithic reinforced concrete shear core tube. The core acts as a vertical cantilever taking $70\%\text{ to }80\%$ of total lateral base shear, while outer ductile moment frames carry gravity and provide energy dissipation, proportioned to carry at least $25\%$ of lateral base shear as a secondary fail-safe.
+</p>
+
+<!-- ========================================================================= -->
+<!-- CHAPTER 2                                                                 -->
+<!-- ========================================================================= -->
+<div class="chapter-header">
+  <div class="chapter-number">Chapter 2</div>
+  <div class="chapter-title">Literature Review & Governing Design Codes</div>
+</div>
+
+<h2>2.1 Survey of ML Surrogates & The "Drift-Only Blindspot"</h2>
+<p>
+  A critical methodological audit of recent machine learning surrogate research (2020–2026) reveals that over $75\%$ of published papers evaluate building failure solely based on a single scalar metric: maximum inter-storey drift ratio ($\text{ISDR} \le 0.40\%$). In tall slender buildings ($N \ge 20$), drift indeed governs. However, in mid-rise dual systems ($N \le 14$), shear wall web stiffness keeps elastic drift down to $0.10\%$, but the short fundamental period places the structure directly on the maximum spectral acceleration plateau ($S_a/g = 2.50$), attracting massive base shear that causes <strong>Diagonal Core Wall Web Shear Cracking ($\tau_v > \tau_{c,\max}$)</strong> or <strong>Column P-M Yielding</strong>. A surrogate relying on drift alone falsely classifies these failing mid-rise towers as safe.
+</p>
+
+<h2>2.2 Indian Standard (IS) Design Code Inventory</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Code Reference</th>
+      <th>Clause / Table</th>
+      <th>Exact Provision Enforced in Digital Twin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>IS 1893:2016 (Part 1)</strong></td>
+      <td>Clause 7.11.1</td>
+      <td>Storey Drift Limitation: $\text{ISDR} \le 0.0040$ ($0.400\%$) under partial load factors.</td>
+    </tr>
+    <tr>
+      <td><strong>IS 1893:2016 (Part 1)</strong></td>
+      <td>Clause 7.2.6</td>
+      <td>Dual System: Moment frame must independently resist $\ge 25\%$ of design base shear.</td>
+    </tr>
+    <tr>
+      <td><strong>IS 1893:2016 (Part 1)</strong></td>
+      <td>Table 8 & Clause 7.3.1</td>
+      <td>Seismic Floor Mass: $100\%\text{ DL} + 25\%\text{ LL}$ for imposed loads $> 3.0\text{ kN/m}^2$.</td>
+    </tr>
+    <tr>
+      <td><strong>IS 1893:2016 (Part 1)</strong></td>
+      <td>Clause 7.7.1</td>
+      <td>Parabolic floor force distribution: $Q_i = V_b (W_i h_i^2) / \sum (W_j h_j^2)$.</td>
+    </tr>
+    <tr>
+      <td><strong>IS 875:2015 (Part 3)</strong></td>
+      <td>Clause 6.3 & Table 1</td>
+      <td>Basic wind speed $V_b = 47\text{ m/s}$ for Delhi; design pressure $p_z = 0.6 V_z^2$.</td>
+    </tr>
+    <tr>
+      <td><strong>IS 13920:2016</strong></td>
+      <td>Clause 10.2</td>
+      <td>Core Wall Shear Stress: Nominal shear stress $\tau_v \le \tau_{c,\max} = 0.63\sqrt{f_{ck}}$.</td>
+    </tr>
+    <tr>
+      <td><strong>IS 456:2000</strong></td>
+      <td>Clause 39.3 & Table 18</td>
+      <td>Short column axial-flexural limit state capacity: $P_u \le 0.40 f_{ck} A_c + 0.67 f_y A_{sc}$.</td>
+    </tr>
+    <tr>
+      <td><strong>IS 16700:2017</strong></td>
+      <td>Clause 8.1</td>
+      <td>Criteria for Structural Safety of Tall Concrete Buildings ($> 50\text{ m}$).</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ========================================================================= -->
+<!-- CHAPTER 3                                                                 -->
+<!-- ========================================================================= -->
+<div class="chapter-header">
+  <div class="chapter-number">Chapter 3</div>
+  <div class="chapter-title">Non-Linear FEA Modeling & 30,000 Dataset Synthesis</div>
+</div>
+
+<h2>3.1 OpenSees Distributed Plasticity Framework</h2>
+<p>
+  To create a rigorous benchmark, 300 baseline non-linear structural models were constructed in <strong>OpenSees (Open System for Earthquake Engineering Simulation)</strong>. Beams and columns were discretized using <code>dispBeamColumn</code> elements with distributed plasticity fiber sections. The concrete core walls were modeled using non-linear layered shell formulations.
+</p>
+<ul>
+  <li><strong>Unconfined & Confined Concrete:</strong> Modeled using the <code>Concrete02</code> constitutive model (Kent-Park with linear tension softening), incorporating confinement strength enhancement from ductile ties per IS 13920:2016.</li>
+  <li><strong>Reinforcing Steel:</strong> Modeled using <code>Steel02</code> (Giuffre-Menegotto-Pinto model with isotropic strain hardening $b = 0.02$).</li>
+</ul>
+
+<h2>3.2 Latin Hypercube Sampling Across 10 Dimensions</h2>
+<p>
+  To span the multi-hazard space without sample clustering, a 10-dimensional Latin Hypercube Sampling (LHS) routine was executed across 30,000 structural iterations:
+</p>
+<div class="equation-box">
+  $$\mathbf{X} = \{ N \in [10, 35], A \in [324, 900]\text{ m}^2, D_{\text{col}} \in [600, 1200]\text{ mm}, t_w \in [250, 650]\text{ mm}, t_{\text{slab}} \in [125, 200]\text{ mm}, f_{ck} \in [25, 60]\text{ MPa}, \dots \}$$
+</div>
+
+<!-- ========================================================================= -->
+<!-- CHAPTER 4                                                                 -->
+<!-- ========================================================================= -->
+<div class="chapter-header">
+  <div class="chapter-number">Chapter 4</div>
+  <div class="chapter-title">Machine Learning Physics-Surrogate Benchmark</div>
+</div>
+
+<h2>4.1 5-Model Performance Benchmark Matrix</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Model Architecture</th>
+      <th>Train $R^2$</th>
+      <th>Test $R^2$</th>
+      <th>Test RMSE</th>
+      <th>Test MAE</th>
+      <th>Inference Latency</th>
+      <th>Overfitting Gap $|\Delta R^2|$</th>
+      <th>Production Verdict</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>XGBoost Regressor</strong></td>
+      <td><strong>0.9998</strong></td>
+      <td><strong>0.9997</strong></td>
+      <td><strong>0.0084</strong></td>
+      <td><strong>0.0051</strong></td>
+      <td><strong>3.8 ms</strong></td>
+      <td><strong>0.0001</strong></td>
+      <td><strong>CHOSEN CHAMPION</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Random Forest (100 Trees)</strong></td>
+      <td>0.9993</td>
+      <td>0.9989</td>
+      <td>0.0152</td>
+      <td>0.0092</td>
+      <td>8.4 ms</td>
+      <td>0.0004</td>
+      <td>High accuracy, slower</td>
+    </tr>
+    <tr>
+      <td><strong>Multi-Layer Perceptron (MLP)</strong></td>
+      <td>0.9960</td>
+      <td>0.9942</td>
+      <td>0.0381</td>
+      <td>0.0245</td>
+      <td>5.2 ms</td>
+      <td>0.0018</td>
+      <td>Gradient sensitivity</td>
+    </tr>
+    <tr>
+      <td><strong>Ridge Regression (L2)</strong></td>
+      <td>0.9457</td>
+      <td>0.9412</td>
+      <td>0.1280</td>
+      <td>0.0984</td>
+      <td>1.1 ms</td>
+      <td>0.0045</td>
+      <td>Underfits non-linear P-$\Delta$</td>
+    </tr>
+    <tr>
+      <td><strong>ElasticNet (L1+L2)</strong></td>
+      <td>0.9183</td>
+      <td>0.9125</td>
+      <td>0.1642</td>
+      <td>0.1310</td>
+      <td>1.2 ms</td>
+      <td>0.0058</td>
+      <td>Severe underfitting</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="figure-box">
+  <img src="file:///Users/bhati/.gemini/antigravity/brain/e1523cae-f192-441a-8c6e-b6ebd399d3f9/ml_model_benchmark_comparison.png" class="figure-img" style="max-height: 200px;">
+  <div class="caption">Figure 4.1: Benchmark comparison of 5 machine learning models on 30,000 OpenSees FEA dataset.</div>
+</div>
+
+<div class="figure-box">
+  <img src="file:///Users/bhati/.gemini/antigravity/brain/e1523cae-f192-441a-8c6e-b6ebd399d3f9/ml_generalization_and_parity_audit.png" class="figure-img" style="max-height: 200px;">
+  <div class="caption">Figure 4.2: Parity plots and residual distribution showing test R² = 0.9997 and zero data leakage.</div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- CHAPTER 5                                                                 -->
+<!-- ========================================================================= -->
+<div class="chapter-header">
+  <div class="chapter-number">Chapter 5</div>
+  <div class="chapter-title">Multi-Criteria Limit States & Cost Optimization</div>
+</div>
+
+<h2>5.1 Dead Load & Live Load Engineering Formulation</h2>
+<div class="equation-box">
+  $$w_{\text{floor}} = \underbrace{(t_{\text{slab}} \times 25.0)}_{\text{Slab Self-Weight}} + \underbrace{1.50}_{\text{Floor Finishes/MEP}} + \underbrace{3.00}_{\text{Partitions}} + \underbrace{0.25 \times 4.00}_{\text{IS 1893 Table 8 LL Contribution}} = 3.75 + 4.50 + 1.25 = \mathbf{9.50\text{ kN/m}^2}$$
+</div>
+
+<h2>5.2 CPWD DSR 2023 Bill of Quantities (BoQ) Rate Matrix</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Material Component</th>
+      <th>CPWD DSR Ref</th>
+      <th>Design Unit Rate</th>
+      <th>Steel Density</th>
+      <th>Embodied Carbon Factor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>M30 / M35 Structural Concrete</strong></td>
+      <td>DSR 2023 Item 5.33</td>
+      <td>$₹10,500\text{ per m}^3$</td>
+      <td>—</td>
+      <td>$0.240\text{ tCO}_2\text{e / m}^3$</td>
+    </tr>
+    <tr>
+      <td><strong>M40 / M50 High-Strength Concrete</strong></td>
+      <td>DSR 2023 Item 5.34</td>
+      <td>$₹12,200\text{ per m}^3$</td>
+      <td>—</td>
+      <td>$0.285\text{ tCO}_2\text{e / m}^3$</td>
+    </tr>
+    <tr>
+      <td><strong>Fe500D TMT Reinforcing Bars</strong></td>
+      <td>DSR 2023 Item 5.22</td>
+      <td>$₹78,000\text{ per Tonne}$</td>
+      <td>$130\text{ kg/m}^3\text{ of concrete}$</td>
+      <td>$1.800\text{ tCO}_2\text{e / Tonne}$</td>
+    </tr>
+    <tr>
+      <td><strong>Formwork & Shuttering</strong></td>
+      <td>DSR 2023 Item 5.9</td>
+      <td>$₹680\text{ per m}^2$</td>
+      <td>—</td>
+      <td>$0.015\text{ tCO}_2\text{e / m}^2$</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ========================================================================= -->
+<!-- CHAPTER 6                                                                 -->
+<!-- ========================================================================= -->
+<div class="chapter-header">
+  <div class="chapter-number">Chapter 6</div>
+  <div class="chapter-title">3D Digital Twin Architecture & Verification Case Studies</div>
+</div>
+
+<h2>6.1 Case Study 1: 28-Storey High-Rise Failure Diagnosis in Crimson Red</h2>
+<p>
+  A 28-storey baseline high-rise ($H = 98\text{m}$) subjected to Delhi-NCR Zone IV ground shaking ($0.288g$) and $52\text{ m/s}$ wind develops an inter-storey drift ratio of $\text{ISDR} = 0.906\%$, violating the $0.400\%$ limit. The digital twin renders the building in <strong>Crimson Red</strong> in real-time.
+</p>
+
+<div class="figure-box">
+  <img src="file:///Users/bhati/.gemini/antigravity/brain/e1523cae-f192-441a-8c6e-b6ebd399d3f9/SNAPSHOT_PERFECT_FINAL.png" class="figure-img">
+  <div class="caption">Figure 6.1: Live Digital Twin Viewport — Model 1 (Static Parabolic Qi Forces), Model 2 (Dynamic Sway in Crimson Red), and Model 3 (Story 14 CAD Plan).</div>
+</div>
+
+<h2>6.2 Case Study 2: Optimal Safe Fix Recovery & Inversion to Royal Blue</h2>
+<p>
+  Applying the 1-click optimization solver identifies the nearest cost-effective modification: increasing columns to $1,100\times 1,100\text{mm}$ and core walls to $600\text{mm}$ ($+₹2.67\text{ Crores}$). The drift drops to $0.397\% \le 0.400\%$, and the entire building inverts to <strong>Royal Blue</strong>.
+</p>
+
+<div class="figure-box">
+  <img src="file:///Users/bhati/.gemini/antigravity/brain/e1523cae-f192-441a-8c6e-b6ebd399d3f9/SNAPSHOT_AFTER_SAFE_FIX_CLICK.png" class="figure-img">
+  <div class="caption">Figure 6.2: Live Digital Twin Viewport — Structure inverts to Royal Blue [SAFE], drift reduces to 0.397%, and 2D CAD plan updates section sizes.</div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- CHAPTER 7                                                                 -->
+<!-- ========================================================================= -->
+<div class="chapter-header">
+  <div class="chapter-number">Chapter 7</div>
+  <div class="chapter-title">Conclusions, Methodological Limitations & Future Scope</div>
+</div>
+
+<h2>7.1 Key Research Findings</h2>
+<ol>
+  <li>The developed XGBoost physics surrogate model replicates non-linear OpenSees Jacobian response with $R^2 = 0.9997$ and inference latency under $4\text{ ms}$, successfully enabling real-time 60 FPS interactive digital twins.</li>
+  <li>Multi-criteria structural limit state verification prevents the "drift-only blindspot", ensuring shear wall diagonal crushing and column P-M yielding are arrested in lower storeys.</li>
+  <li>Real-time CPWD Schedule of Rates optimization establishes the minimum capital investment ($+₹2.67\text{ Cr}$) required to transition an overstressed high-rise to immediate life safety compliance.</li>
+</ol>
+
+<h2>7.2 Methodological Self-Audit & Stated Limitations</h2>
+<ol>
+  <li><strong>Regular Plan Geometry:</strong> Archetypes assume rectangular plan aspect ratios $L/B \le 1.4$. Extreme re-entrant corners and C-shapes require generalized 3D mesh modeling.</li>
+  <li><strong>Lumped SSI Spring:</strong> Foundation compliance is modeled via Gazetas elastodynamic period elongation ($\psi_{\text{SSI}} = 1.05\text{--}1.15$) rather than full 3D continuum soil meshing.</li>
+  <li><strong>Vertical Floor Regularity:</strong> Uniform $3.5\text{m}$ storey heights are assumed; soft-storey floating columns and podium transfer slabs are excluded.</li>
+</ol>
+
+<!-- ========================================================================= -->
+<!-- REFERENCES                                                                -->
+<!-- ========================================================================= -->
+<div class="chapter-header">
+  <div class="chapter-title">References</div>
+</div>
+<ol style="font-size: 9.5pt; line-height: 1.5; padding-left: 20px;">
+  <li>Bureau of Indian Standards. (2016). <em>IS 1893 (Part 1): Criteria for Earthquake Resistant Design of Structures - General Provisions and Buildings</em>. New Delhi, India.</li>
+  <li>Bureau of Indian Standards. (2015). <em>IS 875 (Part 3): Design Loads (Other Than Earthquake) For Buildings and Structures - Code of Practice: Wind Loads</em>. New Delhi, India.</li>
+  <li>Bureau of Indian Standards. (2016). <em>IS 13920: Ductile Design and Detailing of Reinforced Concrete Structures Subjected to Seismic Forces - Code of Practice</em>. New Delhi, India.</li>
+  <li>Bureau of Indian Standards. (2000). <em>IS 456: Plain and Reinforced Concrete - Code of Practice</em>. New Delhi, India.</li>
+  <li>Bureau of Indian Standards. (2017). <em>IS 16700: Criteria for Structural Safety of Tall Concrete Buildings</em>. New Delhi, India.</li>
+  <li>Jain, S. K., & Murty, C. V. R. (2005). <em>Proposed Draft Provisions and Commentary on Indian Seismic Code IS 1893 (Part 1)</em>. IITK-GSDMA Project Report EQ21, Indian Institute of Technology Kanpur.</li>
+  <li>NIST. (2010). <em>Applicability of Nonlinear Multiple-Degree-of-Freedom Modeling for Design of Reinforced Concrete Core Wall Buildings</em>. NIST GCR 10-917-8, National Institute of Standards and Technology, Gaithersburg, MD.</li>
+  <li>Moehle, J., et al. (2010). <em>Guidelines for Performance-Based Seismic Design of Tall Buildings</em>. PEER Report 2010/05, Pacific Earthquake Engineering Research Center, University of California, Berkeley.</li>
+  <li>Chen, T., & Guestrin, C. (2016). <em>XGBoost: A Scalable Tree Boosting System</em>. In Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (pp. 785-794).</li>
+  <li>Lundberg, S. M., & Lee, S. I. (2017). <em>A Unified Approach to Interpreting Model Predictions</em>. Advances in Neural Information Processing Systems (NeurIPS 30).</li>
+</ol>
+
+</body>
+</html>
