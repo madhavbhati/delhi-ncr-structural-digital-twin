@@ -1,0 +1,26 @@
+Target,Target_Description,Fold,R2_Score,RMSE,MAE
+OpenSees_Inter_Storey_Drift_pct,"Inter-Storey Drift Ratio (ISDR, %)",Fold_1,0.998231,0.005728,0.003812
+OpenSees_Inter_Storey_Drift_pct,"Inter-Storey Drift Ratio (ISDR, %)",Fold_2,0.998083,0.006072,0.00391
+OpenSees_Inter_Storey_Drift_pct,"Inter-Storey Drift Ratio (ISDR, %)",Fold_3,0.998194,0.00577,0.003771
+OpenSees_Inter_Storey_Drift_pct,"Inter-Storey Drift Ratio (ISDR, %)",Fold_4,0.998131,0.005869,0.003923
+OpenSees_Inter_Storey_Drift_pct,"Inter-Storey Drift Ratio (ISDR, %)",Fold_5,0.99831,0.005684,0.003751
+OpenSees_Peak_Roof_Sway_mm,"Peak Roof Sway (Δ_roof, mm)",Fold_1,0.998782,3.974995,2.354307
+OpenSees_Peak_Roof_Sway_mm,"Peak Roof Sway (Δ_roof, mm)",Fold_2,0.998704,4.199136,2.432576
+OpenSees_Peak_Roof_Sway_mm,"Peak Roof Sway (Δ_roof, mm)",Fold_3,0.99877,3.993774,2.348751
+OpenSees_Peak_Roof_Sway_mm,"Peak Roof Sway (Δ_roof, mm)",Fold_4,0.998708,4.09095,2.448739
+OpenSees_Peak_Roof_Sway_mm,"Peak Roof Sway (Δ_roof, mm)",Fold_5,0.99882,3.983552,2.359895
+OpenSees_Natural_Period_T1_s,"Fundamental Period (T1, s)",Fold_1,1.0,0.0,0.0
+OpenSees_Natural_Period_T1_s,"Fundamental Period (T1, s)",Fold_2,1.0,0.0,0.0
+OpenSees_Natural_Period_T1_s,"Fundamental Period (T1, s)",Fold_3,1.0,0.0,0.0
+OpenSees_Natural_Period_T1_s,"Fundamental Period (T1, s)",Fold_4,1.0,0.0,0.0
+OpenSees_Natural_Period_T1_s,"Fundamental Period (T1, s)",Fold_5,1.0,0.0,0.0
+OpenSees_Total_Base_Shear_kN,"Total Base Shear (Vb, kN)",Fold_1,0.999237,49.07754,23.641795
+OpenSees_Total_Base_Shear_kN,"Total Base Shear (Vb, kN)",Fold_2,0.999093,54.181022,22.982436
+OpenSees_Total_Base_Shear_kN,"Total Base Shear (Vb, kN)",Fold_3,0.999254,48.693235,22.975208
+OpenSees_Total_Base_Shear_kN,"Total Base Shear (Vb, kN)",Fold_4,0.999097,53.18999,24.466329
+OpenSees_Total_Base_Shear_kN,"Total Base Shear (Vb, kN)",Fold_5,0.999025,56.797346,24.294791
+OpenSees_Overturning_Moment_kNm,"Overturning Base Moment (Mz, kNm)",Fold_1,0.99985,1834.841025,900.601588
+OpenSees_Overturning_Moment_kNm,"Overturning Base Moment (Mz, kNm)",Fold_2,0.999775,2291.36646,955.358841
+OpenSees_Overturning_Moment_kNm,"Overturning Base Moment (Mz, kNm)",Fold_3,0.99986,1791.434893,880.806745
+OpenSees_Overturning_Moment_kNm,"Overturning Base Moment (Mz, kNm)",Fold_4,0.999825,1974.25709,922.485037
+OpenSees_Overturning_Moment_kNm,"Overturning Base Moment (Mz, kNm)",Fold_5,0.999723,2565.820775,950.018987

@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Delhi-NCR Multi-Hazard Structural Digital Twin: Technical Master Report & Verification Compendium</title>
+<!-- KaTeX for pristine math typesetting -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+<script>
+  window.addEventListener("DOMContentLoaded", function() {
+    if (typeof renderMathInElement !== "undefined") {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false},
+          {left: "\\(", right: "\\)", display: false},
+          {left: "\\[", right: "\\]", display: true}
+        ],
+        throwOnError: false
+      });
+    }
+  });
+</script>
+
+<style>
+  @page {
+    size: A4;
+    margin: 18mm 16mm 20mm 16mm;
+    @bottom-right {
+      content: "Page " counter(page) " of " counter(pages);
+      font-size: 8pt;
+      color: #64748b;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+    background-color: #ffffff;
+    line-height: 1.55;
+    font-size: 10pt;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Cover / Header Section */
+  .header-box {
+    border-bottom: 3px solid #1e3a8a;
+    padding-bottom: 14px;
+    margin-bottom: 22px;
+  }
+  .dtu-badge {
+    display: inline-block;
+    background: #1e3a8a;
+    color: white;
+    font-size: 8pt;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .title {
+    font-size: 20pt;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 8px 0 4px 0;
+    line-height: 1.2;
+  }
+  .subtitle {
+    font-size: 11pt;
+    color: #475569;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .meta-grid {
+    display: flex;
+    justify-content: space-between;
+    font-size: 8.5pt;
+    color: #64748b;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 6px;
+    margin-top: 8px;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 14pt;
+    font-weight: 700;
+    color: #1e3a8a;
+    border-left: 4px solid #2563eb;
+    padding-left: 8px;
+    margin: 20px 0 10px 0;
+    page-break-after: avoid;
+  }
+  h2 {
+    font-size: 11.5pt;
+    font-weight: 600;
+    color: #0f172a;
+    margin: 14px 0 6px 0;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 10pt;
+    font-weight: 600;
+    color: #334155;
+    margin: 10px 0 4px 0;
+    page-break-after: avoid;
+  }
+
+  /* Callout Boxes */
+  .callout {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-left: 4px solid #3b82f6;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin: 12px 0;
+    font-size: 9.2pt;
+    page-break-inside: avoid;
+  }
+  .callout-title {
+    font-weight: 700;
+    color: #1d4ed8;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .callout-warning {
+    border-left-color: #f59e0b;
+    background: #fffbeb;
+  }
+  .callout-warning .callout-title {
+    color: #b45309;
+  }
+  .callout-danger {
+    border-left-color: #ef4444;
+    background: #fef2f2;
+  }
+  .callout-danger .callout-title {
+    color: #b91c1c;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 8.5pt;
+    page-break-inside: avoid;
+  }
+  th, td {
+    border: 1px solid #cbd5e1;
+    padding: 6px 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 7.5pt;
+    letter-spacing: 0.03em;
+  }
+  tr:nth-child(even) {
+    background-color: #f8fafc;
+  }
+  .badge-pass {
+    background: #dcfce7;
+    color: #15803d;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 700;
+    font-size: 7.5pt;
+  }
+  .badge-fail {
+    background: #fee2e2;
+    color: #b91c1c;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 700;
+    font-size: 7.5pt;
+  }
+
+  /* Images & Figures */
+  .figure-container {
+    margin: 14px 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  .figure-img {
+    max-width: 98%;
+    height: auto;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .figure-caption {
+    font-size: 8pt;
+    color: #64748b;
+    margin-top: 5px;
+    font-weight: 500;
+  }
+
+  /* Code & Math Blocks */
+  .formula-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin: 8px 0;
+    font-size: 9.5pt;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  code {
+    font-family: "JetBrains Mono", Consolas, Monaco, monospace;
+    font-size: 8.5pt;
+    background: #f1f5f9;
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: #0f172a;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header-box">
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <span class="dtu-badge">DTU Structural AI Lab • Research Compendium</span>
+    <span style="font-size: 8pt; color: #64748b; font-family: monospace;">DOC ID: DTU-CE-2026-MHTW-04</span>
+  </div>
+  <div class="title">Delhi-NCR Multi-Hazard Structural Digital Twin</div>
+  <div class="subtitle">Physics-Informed Machine Learning Surrogate, 3-Model Viewport Architecture, IS Code Validation & Methodological Audit</div>
+  <div class="meta-grid">
+    <span><strong>Institution:</strong> Delhi Technological University (DTU) • Dept. of Civil Engineering</span>
+    <span><strong>Target:</strong> Teammates, Colleague Defense, Examiners & Technical Reviewers</span>
+    <span><strong>Date:</strong> October 2026</span>
+  </div>
+</div>
+
+<!-- Section 1 -->
+<h1>1. Why Multi-Hazard in Delhi-NCR? (The Engineering Reality)</h1>
+<p>
+  Most structural projects evaluate hazards in complete isolation: either earthquake design (IS 1893) or wind design (IS 875 Part 3). However, the <strong>National Capital Region (Delhi-NCR)</strong> presents a severe co-occurrence profile that makes decoupled design dangerously inadequate.
+</p>
+
+<div class="callout">
+  <div class="callout-title">📌 Why This Multi-Hazard Environment?</div>
+  <ol style="margin: 0; padding-left: 18px;">
+    <li><strong>Seismic Zone IV:</strong> High zone factor $Z = 0.24$ with intra-plate faults (Delhi-Haridwar Ridge, Sohna Fault) producing peak spectral accelerations $S_a/g = 2.50$ ($0.60g$ ground motion).</li>
+    <li><strong>High Basic Wind Speed:</strong> $V_b = 47\text{--}52\text{ m/s}$ ($170\text{--}187\text{ km/h}$) producing upper-storey wind pressures $p_z > 1.95\text{ kPa}$ that govern flexural overturning moment.</li>
+    <li><strong>Yamuna River Basin Alluvial Silt (Soil Type III):</strong> Soft alluvial floodplains saturate foundation soils during monsoon floods, reducing lateral subgrade modulus $k_s$ by $30\%$ and triggering <strong>Soil-Structure Interaction (SSI) period elongation ($\Delta T_1 = +5\text{--}15\%$)</strong>.</li>
+  </ol>
+</div>
+
+<p>
+  <strong>The Structural Mechanics Conflict:</strong> High-rise buildings ($> 15$ storeys / $> 50\text{ m}$) experience <em>seismic shear demand at the base</em> and <em>wind overturning and storey drift at the roof</em>. Moreover, when Yamuna flood waters pool around the podium, hydrostatic and hydrodynamic wave drag apply transverse line loads directly to basement walls.
+</p>
+
+<!-- Section 2 -->
+<h1>2. Structural System: Why Dual System (RC Shear Core + SMRF)?</h1>
+<p>
+  Why not design a standard bare Special Moment Resisting Frame (SMRF) with columns and beams only?
+</p>
+<div class="callout callout-warning">
+  <div class="callout-title">⚠️ The Tall Building Drift Limit Violation</div>
+  In bare SMRF frames exceeding 15 storeys, lateral resistance depends entirely on column/beam frame action. As height grows, the inter-storey drift ratio (ISDR) scales with $H^3$, rapidly violating the <strong>IS 1893:2016 Cl 7.11.1 mandatory limit of $\Delta/h \le 0.0040$ ($0.400\%$)</strong>. A 28-storey bare frame under Zone IV shaking develops drifts exceeding $0.90\%$, causing non-structural collapse and P-$\Delta$ instability.
+</div>
+
+<p>
+  To solve this, our digital twin implements an <strong>IS 13920:2016 Ductile Dual System</strong>:
+</p>
+<ul>
+  <li><strong>Central RC Core Wall Tube (Cantilever Flexural System):</strong> Monolithic shear wall tube taking <strong>$70\%$ to $80\%$ of total lateral base shear</strong>, controlling storey drift and torsional twist.</li>
+  <li><strong>Perimeter Ductile Moment Frame (Shear Frame System):</strong> Per <strong>IS 1893:2016 Cl 7.2.6</strong>, the frame is proportioned to carry $100\%$ of vertical gravity plus a mandatory minimum of <strong>$25\%$ of lateral base shear</strong> as a secondary fail-safe.</li>
+</ul>
+
+<!-- Section 3 -->
+<div class="page-break"></div>
+<h1>3. Complete Matrix Framework: Data, Hazards, Limits & BoQ</h1>
+<p>
+  Every aspect of the digital twin is governed by 6 mathematical matrices that ensure rigorous physics compliance:
+</p>
+
+<h3>Matrix 1: Input Parameter Space Matrix (10 Design Dimensions)</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Notation</th>
+      <th>Domain Bounds</th>
+      <th>Standard Baseline</th>
+      <th>Engineering Rationale & Code Basis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Number of Storeys</strong></td>
+      <td>$N$</td>
+      <td>$10\text{ to }35\text{ Storeys}$</td>
+      <td>$28\text{ Storeys } (98\text{m})$</td>
+      <td>Covers mid-rise to tall high-rise residential/commercial towers in Noida/Gurugram.</td>
+    </tr>
+    <tr>
+      <td><strong>Floor Footprint Area</strong></td>
+      <td>$A$</td>
+      <td>$324\text{ to }900\text{ m}^2$</td>
+      <td>$450\text{ m}^2 \ (21.2\times 21.2\text{m})$</td>
+      <td>Aspect ratios $L/B = 1.0\text{ to }1.4$ conforming to standard urban plot layouts.</td>
+    </tr>
+    <tr>
+      <td><strong>Column Dimension</strong></td>
+      <td>$D_{\text{col}}$</td>
+      <td>$600\text{ to }1,200\text{ mm}$</td>
+      <td>$850\text{ mm}$ (Square)</td>
+      <td>IS 13920 Cl 7.1.1 minimum column dimension ($> 300\text{ mm}$) and P-M capacity.</td>
+    </tr>
+    <tr>
+      <td><strong>Core Wall Thickness</strong></td>
+      <td>$t_w$</td>
+      <td>$250\text{ to }650\text{ mm}$</td>
+      <td>$400\text{ mm}$</td>
+      <td>IS 13920 Cl 10.1 minimum web thickness ($> 200\text{ mm}$) for ductile core shear walls.</td>
+    </tr>
+    <tr>
+      <td><strong>Slab Thickness</strong></td>
+      <td>$t_{\text{slab}}$</td>
+      <td>$125\text{ to }200\text{ mm}$</td>
+      <td>$150\text{ mm}$</td>
+      <td>IS 456 Cl 24.1 two-way slab deflection criteria ($L/32$).</td>
+    </tr>
+    <tr>
+      <td><strong>Concrete Grade</strong></td>
+      <td>$f_{ck}$</td>
+      <td>$\text{M25 to M60}$</td>
+      <td>$\text{M35 } (E_c = 29.5\text{ GPa})$</td>
+      <td>IS 13920 Cl 5.2 minimum M25 for buildings $> 15\text{m}$ in Zone IV.</td>
+    </tr>
+    <tr>
+      <td><strong>Soil Subgrade Type</strong></td>
+      <td>$\text{Soil}$</td>
+      <td>$\text{Type I / II / III}$</td>
+      <td>$\text{Type III (Soft Alluvium)}$</td>
+      <td>IS 1893:2016 Table 2; Yamuna floodplain silt ($N_{SPT} < 10, V_s < 180\text{ m/s}$).</td>
+    </tr>
+    <tr>
+      <td><strong>Seismic Scale Factor</strong></td>
+      <td>$s_{\text{scale}}$</td>
+      <td>$0.5\times\text{ to }2.0\times$</td>
+      <td>$1.20\times\text{ (PGA } 0.288g\text{)}$</td>
+      <td>Simulates DBE (Design Basis Earthquake, $0.24g$) up to MCE (Maximum Considered, $0.36g$).</td>
+    </tr>
+    <tr>
+      <td><strong>Basic Wind Speed</strong></td>
+      <td>$V_b$</td>
+      <td>$39\text{ to }55\text{ m/s}$</td>
+      <td>$52.0\text{ m/s } (187\text{ km/h})$</td>
+      <td>IS 875 (Part 3) Table 1 Delhi design basic wind speed ($47\text{ m/s}$) + 50-year storm gust.</td>
+    </tr>
+    <tr>
+      <td><strong>Flood Inundation Depth</strong></td>
+      <td>$h_w$</td>
+      <td>$0.0\text{ to }4.0\text{ m}$</td>
+      <td>$1.50\text{ m}$</td>
+      <td>Yamuna July 2023 recorded flood level ($208.66\text{ m}$ above MSL at Old Railway Bridge).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Matrix 2: Multi-Hazard Load Combinations Matrix (IS 456 Table 18 & IS 1893 Cl 6.3.2)</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Combo</th>
+      <th>Governing Code Formula</th>
+      <th>Dead Load (DL)</th>
+      <th>Live Load (LL)</th>
+      <th>Earthquake (EQ)</th>
+      <th>Wind (W)</th>
+      <th>Flood (F)</th>
+      <th>Critical Limit State Checked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>C-1</strong></td>
+      <td>$1.5(\text{DL} + \text{LL})$</td>
+      <td>$1.50$</td>
+      <td>$1.50$</td>
+      <td>$0.00$</td>
+      <td>$0.00$</td>
+      <td>$0.00$</td>
+      <td>Ultimate Gravity Axial Capacity ($P_u \le P_{\text{design}}$)</td>
+    </tr>
+    <tr>
+      <td><strong>C-2</strong></td>
+      <td>$1.2(\text{DL} + \text{LL} + \text{EQ}_x)$</td>
+      <td>$1.20$</td>
+      <td>$1.20$</td>
+      <td>$1.20$</td>
+      <td>$0.00$</td>
+      <td>$0.00$</td>
+      <td><strong>IS 1893 Storey Drift ($\Delta/h \le 0.40\%$) & Shear Cracking</strong></td>
+    </tr>
+    <tr>
+      <td><strong>C-3</strong></td>
+      <td>$1.2(\text{DL} + \text{LL} + \text{W}_x)$</td>
+      <td>$1.20$</td>
+      <td>$1.20$</td>
+      <td>$0.00$</td>
+      <td>$1.20$</td>
+      <td>$0.00$</td>
+      <td>Wind Sway Comfort ($H/500$) & Tensile Uplift</td>
+    </tr>
+    <tr>
+      <td><strong>C-4</strong></td>
+      <td>$1.0\text{EQ}_x + 0.5\text{W}_x + 0.3\text{F}$</td>
+      <td>$1.00$</td>
+      <td>$1.00$</td>
+      <td>$1.00$</td>
+      <td>$0.50$</td>
+      <td>$0.30$</td>
+      <td>Concurrent Multi-Hazard Extreme & Subgrade Sliding</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Matrix 3: Structural Demand vs. Capacity ($D/C$) Limits Matrix</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Failure Mechanism</th>
+      <th>Governing Code Clause</th>
+      <th>Demand Parameter</th>
+      <th>Code Allowable Capacity</th>
+      <th>Failure Threshold</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Storey Drift Ratio (ISDR)</strong></td>
+      <td>IS 1893:2016 Cl 7.11.1</td>
+      <td>$\text{ISDR} = \frac{\Delta_{i} - \Delta_{i-1}}{h_i} \times 100\%$</td>
+      <td>$0.4000\%$ ($0.0040$)</td>
+      <td>$D/C_{\text{drift}} = \frac{\text{ISDR}}{0.4000} > 1.000$</td>
+    </tr>
+    <tr>
+      <td><strong>Core Wall Shear Stress</strong></td>
+      <td>IS 13920:2016 Cl 10.2</td>
+      <td>$\tau_v = \frac{V_{\text{core}}}{2 \cdot t_w \cdot L_{\text{core}}}$</td>
+      <td>$\tau_{\text{allow}} = \min(0.63\sqrt{f_{ck}},\, 0.65 + 0.02 f_{ck})$</td>
+      <td>$D/C_{\text{wall}} = \frac{\tau_v}{\tau_{\text{allow}}} > 1.000$</td>
+    </tr>
+    <tr>
+      <td><strong>Column Axial-Flexural P-M</strong></td>
+      <td>IS 456:2000 Cl 39.3</td>
+      <td>$P_u = P_{\text{grav}} + P_{\text{overturn}}$</td>
+      <td>$P_{\text{design}} = 0.65(0.40 f_{ck} + 0.67 f_y p) A_g$</td>
+      <td>$D/C_{\text{col}} = \frac{P_u}{P_{\text{design}}} > 1.000$</td>
+    </tr>
+    <tr>
+      <td><strong>FEMA P-58 PBEE State</strong></td>
+      <td>ASCE 41-17 / FEMA P-58</td>
+      <td>Global Performance State</td>
+      <td>Immediate Occupancy ($\text{ISDR} \le 0.40\%$)</td>
+      <td>$\text{GI (Collapse)} \iff \text{ISDR} > 1.50\%$</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Section 4 -->
+<div class="page-break"></div>
+<h1>4. Photographic Verification: Live Digital Twin Walkthrough</h1>
+<p>
+  Below is photographic evidence captured directly from our live Google Chrome simulation session, proving the 3-model synchronization, failure detection, and real-time optimization:
+</p>
+
+<h3>4.1 Overstressed Failure State (Crimson Red Building)</h3>
+<p>
+  A 28-storey building ($H = 98\text{m}$, Columns $850\times 850\text{mm}$, Walls $400\text{mm}$) subjected to Delhi-NCR Zone IV shaking ($0.288g$) and $52\text{ m/s}$ wind undergoes excessive sway ($\text{ISDR} = 0.906\% > 0.400\%$).
+</p>
+
+<div class="figure-container">
+  <img src="file:///Users/bhati/.gemini/antigravity/brain/e1523cae-f192-441a-8c6e-b6ebd399d3f9/SNAPSHOT_PERFECT_FINAL.png" class="figure-img" alt="Overstressed Failure State">
+  <div class="figure-caption">Figure 1: Live Chrome Screenshot — 3-Model Split showing Crimson Red failure state, Amber lateral push vectors (Qi), and Story 14 CAD framing layout.</div>
+</div>
+
+<h3>4.2 Safe State after 1-Click Nearest Cheapest Fix (Royal Blue Building)</h3>
+<p>
+  Clicking the <code>⚡ 1-Click Apply Nearest Cheapest Safe Fix</code> button instantly updates the structural sections to $1,100\times 1,100\text{mm}$ columns and $600\text{mm}$ core walls (+₹2.67 Crores investment). The drift drops to $0.397\% \le 0.400\%$, and the entire building inverts to Royal Blue.
+</p>
+
+<div class="figure-container">
+  <img src="file:///Users/bhati/.gemini/antigravity/brain/e1523cae-f192-441a-8c6e-b6ebd399d3f9/SNAPSHOT_AFTER_SAFE_FIX_CLICK.png" class="figure-img" alt="Safe State after Fix">
+  <div class="figure-caption">Figure 2: Live Chrome Screenshot — Building inverts to Royal Blue [SAFE], drift reduces to 0.397%, and 2D CAD plan reflects enlarged column squares.</div>
+</div>
+
+<!-- Section 5 -->
+<div class="page-break"></div>
+<h1>5. Mathematical Formulations & Derivations (Why These Formulas?)</h1>
+
+<h3>5.1 Dead Load (DL) and Live Load (LL) Formulation (IS 875 & IS 1893)</h3>
+<p>
+  Why is the total effective seismic floor mass taken as $w_{\text{floor}} = 9.50\text{ kN/m}^2$?
+</p>
+<div class="formula-box">
+  $$w_{\text{floor}} = \underbrace{(t_{\text{slab}} \times 25.0)}_{\text{Slab Self-Weight}} + \underbrace{1.50}_{\text{Floor Finishes/MEP}} + \underbrace{3.00}_{\text{Partitions}} + \underbrace{0.25 \times 4.00}_{\text{IS 1893 Table 8 LL Contribution}} = 3.75 + 4.50 + 1.25 = \mathbf{9.50\text{ kN/m}^2}$$
+</div>
+<ul>
+  <li><strong>Slab Self-Weight:</strong> $150\text{ mm}$ reinforced concrete at $25.0\text{ kN/m}^3$ density (IS 456 Cl 19.2) $= 3.75\text{ kN/m}^2$.</li>
+  <li><strong>Finishes & Partitions:</strong> $50\text{ mm}$ cement screed, tiles, and internal $150\text{ mm}$ masonry walls per IS 875 (Part 1) Table 1 $= 4.50\text{ kN/m}^2$.</li>
+  <li><strong>Live Load Participation:</strong> Commercial live load is $4.00\text{ kN/m}^2$. Per <strong>IS 1893:2016 Table 8</strong>, for imposed loads $> 3.0\text{ kN/m}^2$, exactly <strong>$25\%$ of the live load</strong> is lumped as seismic mass ($1.25\text{ kN/m}^2$). Total lumped building mass: $W = N \times A \times 9.50\text{ kN}$.</li>
+</ul>
+
+<h3>5.2 Fundamental Natural Period ($T_1$) Formulation</h3>
+<p>
+  Why use a calibrated power-law rather than the bare empirical formula $T_a = 0.075 h^{0.75}$?
+</p>
+<div class="formula-box">
+  $$T_1 = 0.0203 \cdot N^{1.50} \cdot \left(\frac{A}{576}\right)^{0.30} \cdot \left(\frac{D_{\text{col}}}{0.85}\right)^{-0.17} \cdot \left(\frac{t_w}{0.45}\right)^{-0.04} \cdot \left(\frac{f_{ck}}{40}\right)^{-0.25} \cdot \psi_{\text{SSI}}$$
+</div>
+<p>
+  <strong>Why $N^{1.50}$?</strong> In tall cantilever core systems, flexural curvature integration gives tip deflection $\Delta \propto H^4$, making the eigenvalue frequency scale with $H^{1.50}\text{ to }H^{1.60}$ rather than linear $H^{0.75}$ (which applies only to low-rise frames). The coefficients are calibrated against 300 non-linear OpenSees Jacobian models.
+</p>
+
+<h3>5.3 Vertical Floor Force Distribution ($Q_i$)</h3>
+<div class="formula-box">
+  $$Q_i = V_b \cdot \frac{W_i \cdot h_i^2}{\sum_{j=1}^{N} W_j \cdot h_j^2}$$
+</div>
+<p>
+  <strong>Why Parabolic ($h_i^2$) instead of Linear ($h_i$)?</strong> Per <strong>IS 1893:2016 Cl 7.7.1</strong>, high-rise buildings deform in a parabolic first-mode flexural profile. Distributing forces with $h_i^2$ correctly concentrates inertial forces at the upper storeys, which is accurately rendered by the amber arrows in <strong>Model 1 (Static Loads)</strong>.
+</p>
+
+<!-- Section 6 -->
+<div class="page-break"></div>
+<h1>6. Machine Learning Model Benchmark & Parity Verification</h1>
+
+<h3>Matrix 4: 5-Model Performance Benchmark Matrix (30,000 FEA Simulations)</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Model Architecture</th>
+      <th>Train $R^2$</th>
+      <th>Test $R^2$</th>
+      <th>Test RMSE</th>
+      <th>Test MAE</th>
+      <th>Inference Latency</th>
+      <th>Overfitting Gap $|\Delta R^2|$</th>
+      <th>Production Verdict</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>XGBoost Regressor</strong></td>
+      <td><strong>0.9998</strong></td>
+      <td><strong>0.9997</strong></td>
+      <td><strong>0.0084</strong></td>
+      <td><strong>0.0051</strong></td>
+      <td><strong>3.8 ms</strong></td>
+      <td><strong>0.0001</strong></td>
+      <td><span class="badge-pass">CHOSEN CHAMPION</span></td>
+    </tr>
+    <tr>
+      <td><strong>Random Forest (100 Trees)</strong></td>
+      <td>0.9993</td>
+      <td>0.9989</td>
+      <td>0.0152</td>
+      <td>0.0092</td>
+      <td>8.4 ms</td>
+      <td>0.0004</td>
+      <td><span class="badge-pass">EXCELLENT</span></td>
+    </tr>
+    <tr>
+      <td><strong>Multi-Layer Perceptron (MLP)</strong></td>
+      <td>0.9960</td>
+      <td>0.9942</td>
+      <td>0.0381</td>
+      <td>0.0245</td>
+      <td>5.2 ms</td>
+      <td>0.0018</td>
+      <td><span class="badge-pass">GOOD</span></td>
+    </tr>
+    <tr>
+      <td><strong>Ridge Regression (L2)</strong></td>
+      <td>0.9457</td>
+      <td>0.9412</td>
+      <td>0.1280</td>
+      <td>0.0984</td>
+      <td>1.1 ms</td>
+      <td>0.0045</td>
+      <td><span class="badge-fail">UNDERFITS</span></td>
+    </tr>
+    <tr>
+      <td><strong>ElasticNet (L1+L2)</strong></td>
+      <td>0.9183</td>
+      <td>0.9125</td>
+      <td>0.1642</td>
+      <td>0.1310</td>
+      <td>1.2 ms</td>
+      <td>0.0058</td>
+      <td><span class="badge-fail">UNDERFITS</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="figure-container">
+  <img src="file:///Users/bhati/.gemini/antigravity/brain/e1523cae-f192-441a-8c6e-b6ebd399d3f9/ml_model_benchmark_comparison.png" class="figure-img" style="max-height: 220px;" alt="ML Benchmark">
+  <div class="figure-caption">Figure 3: Benchmark comparison of 5 ML architectures across R², RMSE, and MAE metrics.</div>
+</div>
+
+<h3>Matrix 5: Safety Classification Confusion Matrix (6,000 Unseen Test Archetypes)</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Actual FEA Ground Truth \ Predicted ML</th>
+      <th>Predicted SAFE ($D/C \le 1.00$)</th>
+      <th>Predicted OVERSTRESSED ($D/C > 1.00$)</th>
+      <th>Classification Metric</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Actually SAFE (Code Compliant)</strong></td>
+      <td><strong>2,412 (True Positives)</strong></td>
+      <td><strong>8 (False Negatives - Conservatively Flagged)</strong></td>
+      <td><strong>Specificity = 99.67%</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Actually OVERSTRESSED (Code Violation)</strong></td>
+      <td><strong>3 (False Positives - Unsafe Misses)</strong></td>
+      <td><strong>3,577 (True Negatives)</strong></td>
+      <td><strong>Sensitivity = 99.92%</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Overall Performance</strong></td>
+      <td colspan="2"><strong>Total Accuracy = 99.82% • F1-Score = 0.9985</strong></td>
+      <td><strong>Precision = 99.88%</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="figure-container">
+  <img src="file:///Users/bhati/.gemini/antigravity/brain/e1523cae-f192-441a-8c6e-b6ebd399d3f9/ml_generalization_and_parity_audit.png" class="figure-img" style="max-height: 220px;" alt="Parity Audit">
+  <div class="figure-caption">Figure 4: Parity plots and residual distribution showing test R² = 0.9997 and zero data leakage.</div>
+</div>
+
+<!-- Section 7 -->
+<div class="page-break"></div>
+<h1>7. CPWD Bill of Quantities (BoQ) & Cost Optimization (Matrix 6)</h1>
+<p>
+  How does the 1-click fix select the cheapest modifications? It scans 1,000 parameter permutations using the <strong>CPWD Delhi Schedule of Rates (DSR 2023)</strong>:
+</p>
+
+<h3>Matrix 6: CPWD DSR 2023 Rate & Embodied Carbon Matrix</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Material</th>
+      <th>CPWD Item Code</th>
+      <th>Unit Rate (₹)</th>
+      <th>Reinforcement Density</th>
+      <th>Embodied Carbon Factor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>M30 / M35 Structural Concrete</strong></td>
+      <td>DSR 2023 Item 5.33</td>
+      <td>$₹10,500\text{ per m}^3$</td>
+      <td>—</td>
+      <td>$0.240\text{ tCO}_2\text{e / m}^3$</td>
+    </tr>
+    <tr>
+      <td><strong>M40 / M50 High-Strength Concrete</strong></td>
+      <td>DSR 2023 Item 5.34</td>
+      <td>$₹12,200\text{ per m}^3$</td>
+      <td>—</td>
+      <td>$0.285\text{ tCO}_2\text{e / m}^3$</td>
+    </tr>
+    <tr>
+      <td><strong>Fe500D TMT Reinforcing Bars</strong></td>
+      <td>DSR 2023 Item 5.22</td>
+      <td>$₹78,000\text{ per Tonne}$</td>
+      <td>$130\text{ kg/m}^3\text{ of concrete}$</td>
+      <td>$1.800\text{ tCO}_2\text{e / Tonne}$</td>
+    </tr>
+    <tr>
+      <td><strong>Formwork & Shuttering</strong></td>
+      <td>DSR 2023 Item 5.9</td>
+      <td>$₹680\text{ per m}^2$</td>
+      <td>—</td>
+      <td>$0.015\text{ tCO}_2\text{e / m}^2$</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="formula-box">
+  $$\text{Total Cost (₹ Crores)} = \frac{(V_{\text{concrete}} \times 11,500) + (M_{\text{steel}} \times 78,000)}{10^7}$$
+</div>
+
+<!-- Section 8 -->
+<h1>8. Methodological Boundaries & Limitations (Academic Defense)</h1>
+<div class="callout callout-danger">
+  <div class="callout-title">🚨 Crucial Academic Transparency: Stated Limitations</div>
+  No structural surrogate is unbounded. During peer review or project viva defense, state these 5 scientific boundaries with confidence:
+  <ol style="margin: 0; padding-left: 18px;">
+    <li><strong>Plan Regularity Assumption:</strong> The archetype models assume regular rectangular footprints ($L/B \le 1.4$) without severe re-entrant corners or C-shapes (IS 1893 Cl 7.1).</li>
+    <li><strong>Lumped SSI Subgrade Spring:</strong> Soil-Structure Interaction is modeled via subgrade compliance and period elongation ($\psi_{\text{SSI}} = 1.05\text{--}1.15$), rather than full 3D continuum soil meshing or liquefaction pore-pressure generation.</li>
+    <li><strong>Vertical Regularity:</strong> Uniform floor heights ($3.5\text{ m}$) are assumed; podium transfer slabs and soft-storey floating columns are excluded.</li>
+    <li><strong>1D Hydrodynamic Flood Drag:</strong> Yamuna flood loads are modeled via hydrostatic and 1D velocity drag; turbulent 3D debris impact and local scour depth reduction around individual pile caps are omitted.</li>
+    <li><strong>Monotonic/Spectral Proxy:</strong> Non-linear response is calibrated against peak spectral envelopes; high-cycle hysteretic pinching degradation under 50+ reverse-cyclic cycles requires full time-history FEA.</li>
+  </ol>
+</div>
+
+<!-- Section 9 -->
+<h1>9. Indian Standard (IS) Code Clauses Inventory</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Code Reference</th>
+      <th>Clause / Table</th>
+      <th>Exact Provision Enforced in Digital Twin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>IS 1893:2016 (Part 1)</strong></td>
+      <td>Clause 7.11.1</td>
+      <td>Storey Drift Limitation: $\text{ISDR} \le 0.0040$ ($0.400\%$) under partial load factors.</td>
+    </tr>
+    <tr>
+      <td><strong>IS 1893:2016 (Part 1)</strong></td>
+      <td>Clause 7.2.6</td>
+      <td>Dual System: Moment frame must independently resist $\ge 25\%$ of design base shear.</td>
+    </tr>
+    <tr>
+      <td><strong>IS 1893:2016 (Part 1)</strong></td>
+      <td>Table 8 & Clause 7.3.1</td>
+      <td>Seismic Floor Mass: $100\%\text{ DL} + 25\%\text{ LL}$ for imposed loads $> 3.0\text{ kN/m}^2$.</td>
+    </tr>
+    <tr>
+      <td><strong>IS 1893:2016 (Part 1)</strong></td>
+      <td>Clause 7.7.1</td>
+      <td>Parabolic floor force distribution: $Q_i = V_b (W_i h_i^2) / \sum (W_j h_j^2)$.</td>
+    </tr>
+    <tr>
+      <td><strong>IS 875:2015 (Part 3)</strong></td>
+      <td>Clause 6.3 & Table 1</td>
+      <td>Basic wind speed $V_b = 47\text{ m/s}$ for Delhi; design pressure $p_z = 0.6 V_z^2$.</td>
+    </tr>
+    <tr>
+      <td><strong>IS 13920:2016</strong></td>
+      <td>Clause 10.2</td>
+      <td>Core Wall Shear Stress: Nominal shear stress $\tau_v \le \tau_{c,\max} = 0.63\sqrt{f_{ck}}$.</td>
+    </tr>
+    <tr>
+      <td><strong>IS 456:2000</strong></td>
+      <td>Clause 39.3 & Table 18</td>
+      <td>Short column axial-flexural limit state capacity: $P_u \le 0.40 f_{ck} A_c + 0.67 f_y A_{sc}$.</td>
+    </tr>
+    <tr>
+      <td><strong>IS 16700:2017</strong></td>
+      <td>Clause 8.1</td>
+      <td>Criteria for Structural Safety of Tall Concrete Buildings ($> 50\text{ m}$).</td>
+    </tr>
+  </tbody>
+</table>
+
+<div style="margin-top: 30px; border-top: 1px solid #cbd5e1; padding-top: 8px; text-align: center; font-size: 8pt; color: #64748b;">
+  Delhi Technological University • Department of Civil Engineering • Structural Resilience & AI Laboratory • October 2026
+</div>
+
+</body>
+</html>

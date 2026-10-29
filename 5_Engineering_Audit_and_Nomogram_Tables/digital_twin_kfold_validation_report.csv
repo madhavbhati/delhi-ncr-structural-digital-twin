@@ -1,0 +1,26 @@
+Target,Target_Description,Fold,Train_Samples,Val_Samples,R2_Score,RMSE,MAE
+Inter_Storey_Drift_Ratio_pct,"Inter-Storey Drift Ratio (ISDR, %)",Fold_1,24000,6000,0.999439,0.003473,0.002683
+Inter_Storey_Drift_Ratio_pct,"Inter-Storey Drift Ratio (ISDR, %)",Fold_2,24000,6000,0.999395,0.0036,0.002756
+Inter_Storey_Drift_Ratio_pct,"Inter-Storey Drift Ratio (ISDR, %)",Fold_3,24000,6000,0.999438,0.003443,0.002685
+Inter_Storey_Drift_Ratio_pct,"Inter-Storey Drift Ratio (ISDR, %)",Fold_4,24000,6000,0.999395,0.003498,0.002705
+Inter_Storey_Drift_Ratio_pct,"Inter-Storey Drift Ratio (ISDR, %)",Fold_5,24000,6000,0.999399,0.003507,0.00272
+Peak_Roof_Displacement_mm,"Peak Roof Sway (Δ_roof, mm)",Fold_1,24000,6000,0.999753,1.777332,1.271255
+Peak_Roof_Displacement_mm,"Peak Roof Sway (Δ_roof, mm)",Fold_2,24000,6000,0.999742,1.813885,1.275688
+Peak_Roof_Displacement_mm,"Peak Roof Sway (Δ_roof, mm)",Fold_3,24000,6000,0.999764,1.737726,1.250297
+Peak_Roof_Displacement_mm,"Peak Roof Sway (Δ_roof, mm)",Fold_4,24000,6000,0.999747,1.751691,1.249726
+Peak_Roof_Displacement_mm,"Peak Roof Sway (Δ_roof, mm)",Fold_5,24000,6000,0.999746,1.785992,1.279621
+Natural_Period_T1_sec,"Fundamental Period (T1, s)",Fold_1,24000,6000,1.0,0.0,0.0
+Natural_Period_T1_sec,"Fundamental Period (T1, s)",Fold_2,24000,6000,1.0,0.0,0.0
+Natural_Period_T1_sec,"Fundamental Period (T1, s)",Fold_3,24000,6000,1.0,0.0,0.0
+Natural_Period_T1_sec,"Fundamental Period (T1, s)",Fold_4,24000,6000,1.0,0.0,0.0
+Natural_Period_T1_sec,"Fundamental Period (T1, s)",Fold_5,24000,6000,1.0,0.0,0.0
+Total_Base_Shear_Vb_kN,"Total Base Shear (Vb, kN)",Fold_1,24000,6000,1.0,0.005035,0.0002
+Total_Base_Shear_Vb_kN,"Total Base Shear (Vb, kN)",Fold_2,24000,6000,1.0,0.016099,0.001009
+Total_Base_Shear_Vb_kN,"Total Base Shear (Vb, kN)",Fold_3,24000,6000,1.0,0.0,0.0
+Total_Base_Shear_Vb_kN,"Total Base Shear (Vb, kN)",Fold_4,24000,6000,1.0,0.021642,0.000615
+Total_Base_Shear_Vb_kN,"Total Base Shear (Vb, kN)",Fold_5,24000,6000,1.0,0.004221,0.000162
+Base_Overturning_Moment_Mz_kNm,"Overturning Moment (Mz, kNm)",Fold_1,24000,6000,1.0,0.924824,0.016885
+Base_Overturning_Moment_Mz_kNm,"Overturning Moment (Mz, kNm)",Fold_2,24000,6000,1.0,0.014524,0.000459
+Base_Overturning_Moment_Mz_kNm,"Overturning Moment (Mz, kNm)",Fold_3,24000,6000,1.0,0.150781,0.007884
+Base_Overturning_Moment_Mz_kNm,"Overturning Moment (Mz, kNm)",Fold_4,24000,6000,1.0,0.010212,0.000346
+Base_Overturning_Moment_Mz_kNm,"Overturning Moment (Mz, kNm)",Fold_5,24000,6000,1.0,0.014702,0.00075

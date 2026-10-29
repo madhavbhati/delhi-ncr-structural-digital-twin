@@ -1,0 +1,6 @@
+Algorithm,Architecture_Type,Target,R2_Mean,R2_Std,RMSE_pct,MAE_pct,Train_Time_s,Inference_Latency_us,Inference_Speed_pred_per_sec,Explainability_Method
+HistGradientBoosting (LightGBM),Fast Histogram Boosting,Inter_Storey_Drift_Ratio_pct,0.99961,1.6e-05,0.002703,0.001979,1.35,2.3,426051.0,TreeSHAP (Fast & Exact)
+Gradient Boosting (GBDT),Sequential Boosting,Inter_Storey_Drift_Ratio_pct,0.999572,2e-05,0.002833,0.002046,3.34,1.8,550475.0,TreeSHAP (Exact)
+Random Forest,Bagging Ensemble (100 Trees),Inter_Storey_Drift_Ratio_pct,0.998205,7.2e-05,0.0058,0.003822,0.42,3.9,255977.0,TreeSHAP (Fast & Exact)
+Multi-Layer Perceptron (MLP),Deep Neural Network,Inter_Storey_Drift_Ratio_pct,0.995956,7.4e-05,0.008708,0.006678,0.63,0.3,3477095.0,KernelSHAP (Opaque)
+Ridge Regression,Linear Baseline,Inter_Storey_Drift_Ratio_pct,0.878745,0.001464,0.047683,0.033404,0.0,0.1,15196754.0,Direct Coefficients

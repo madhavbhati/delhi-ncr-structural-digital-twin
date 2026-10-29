@@ -1,0 +1,36 @@
+{
+  "total_models_extracted": 300,
+  "total_cases_extracted": 30000,
+  "slab_distribution_cases": {
+    "125": 8000,
+    "150": 8000,
+    "175": 7600,
+    "200": 6400
+  },
+  "fundamental_period_range_s": {
+    "min": 0.6075,
+    "max": 3.9519,
+    "mean": 1.9881
+  },
+  "inter_storey_drift_pct": {
+    "min": 0.05953,
+    "max": 0.81115,
+    "mean": 0.26956
+  },
+  "base_shear_kN": {
+    "min": 2061.68,
+    "max": 10094.58,
+    "mean": 4982.95
+  },
+  "base_moment_kNm": {
+    "min": 56512.97,
+    "max": 824602.29,
+    "mean": 282765.2
+  },
+  "is1893_compliance": {
+    "compliant_cases": 23638,
+    "compliant_pct": 78.79,
+    "exceeded_cases": 6362,
+    "exceeded_pct": 21.21
+  }
+}

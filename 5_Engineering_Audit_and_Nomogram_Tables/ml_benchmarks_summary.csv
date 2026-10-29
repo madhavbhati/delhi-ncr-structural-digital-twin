@@ -1,0 +1,6 @@
+Target,RF_R2,RF_RMSE,RF_MAE,XGB_R2,XGB_RMSE,XGB_MAE
+Inter_Storey_Drift_Ratio_pct,0.9996,0.003,0.0023,0.9994,0.0037,0.0028
+Peak_Roof_Displacement_mm,0.9998,1.489,1.077,0.9998,1.7371,1.2595
+Natural_Period_T1_sec,1.0,0.0,0.0,1.0,0.0004,0.0003
+Total_Base_Shear_Vb_kN,1.0,0.0101,0.0006,1.0,9.389,5.6608
+Base_Overturning_Moment_Mz_kNm,1.0,1.1056,0.0203,1.0,286.5611,171.3382

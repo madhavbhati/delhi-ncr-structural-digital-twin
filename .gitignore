@@ -1,0 +1,8 @@
+# Ignore single file >100MB to comply with GitHub file size policy
+6_Trained_ML_Surrogate_Models/opensees_digital_twin_rf_models.joblib
+
+# OS metadata
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc

@@ -1,0 +1,6 @@
+Target,Target_Description,R2_Mean,R2_Std,RMSE_Mean,RMSE_Std,MAE_Mean,MAE_Std,Compute_Time_sec
+Inter_Storey_Drift_Ratio_pct,"Inter-Storey Drift Ratio (ISDR, %)",0.999413,2.1e-05,0.003504,5.3e-05,0.00271,2.7e-05,2.3
+Peak_Roof_Displacement_mm,"Peak Roof Sway (Δ_roof, mm)",0.99975,8e-06,1.773325,0.026672,1.265317,0.012776,2.13
+Natural_Period_T1_sec,"Fundamental Period (T1, s)",1.0,0.0,0.0,0.0,0.0,0.0,1.35
+Total_Base_Shear_Vb_kN,"Total Base Shear (Vb, kN)",1.0,0.0,0.009399,0.008111,0.000397,0.000367,1.44
+Base_Overturning_Moment_Mz_kNm,"Overturning Moment (Mz, kNm)",1.0,0.0,0.223009,0.354937,0.005265,0.006474,1.33

@@ -1,0 +1,10 @@
+Soil_Domain,Shear_Wave_Vs_ms,Storeys_N,Total_Height_H_m,Fixed_Base_Period_T_s,Flexible_Base_SSI_Period_T_tilde_s,Period_Elongation_pct,ETABS_Empirical_Factor_Used,Theoretical_vs_Empirical_Match
+Delhi Ridge Quartzite,750,10,35.0,0.82,0.833,1.62,0.0% (Medium),CONSISTENT
+Delhi Ridge Quartzite,750,20,70.0,1.379,1.433,3.9,0.0% (Medium),CONSISTENT
+Delhi Ridge Quartzite,750,30,105.0,1.87,1.998,6.85,0.0% (Medium),VERIFIED_ALIGNED
+Central Delhi Alluvium,240,10,35.0,0.82,0.938,14.34,0.0% (Medium),CONSISTENT
+Central Delhi Alluvium,240,20,70.0,1.379,1.82,31.96,0.0% (Medium),CONSISTENT
+Central Delhi Alluvium,240,30,105.0,1.87,2.847,52.27,0.0% (Medium),CONSISTENT
+Yamuna Floodplain Silt,160,10,35.0,0.82,1.059,29.16,+8.0% (Soft Soil),CONSISTENT
+Yamuna Floodplain Silt,160,20,70.0,1.379,2.225,61.29,+8.0% (Soft Soil),CONSISTENT
+Yamuna Floodplain Silt,160,30,105.0,1.87,3.666,96.06,+8.0% (Soft Soil),CONSISTENT

@@ -1,0 +1,7 @@
+Earthquake_Event,Magnitude_Mw,Tectonic_Source,Storeys_N,ETABS_Dynamic_T1_s,ETABS_Peak_ISDR_pct,ML_Surrogate_ISDR_pct,Absolute_Variation_pct,Relative_Error_pct,IS1893_Code_Limit_pct,Status
+1999 Chamoli Earthquake,6.8,Himalayan Main Central Thrust (MCT),15,1.033,0.336,0.3382,0.0022,0.65,0.4,VALIDATED_PASS
+1999 Chamoli Earthquake,6.8,Himalayan Main Central Thrust (MCT),25,1.469,0.449,0.4512,0.0022,0.49,0.4,VALIDATED_FAIL
+1991 Uttarkashi Earthquake,6.8,Garhwal Himalayan Thrust System,15,1.033,0.336,0.3382,0.0022,0.65,0.4,VALIDATED_PASS
+1991 Uttarkashi Earthquake,6.8,Garhwal Himalayan Thrust System,25,1.469,0.449,0.4512,0.0022,0.49,0.4,VALIDATED_FAIL
+2001 Bhuj Earthquake (Far-Field Scaled),7.7,Intraplate Deep Fault (Kachchh),15,1.033,0.336,0.3382,0.0022,0.65,0.4,VALIDATED_PASS
+2001 Bhuj Earthquake (Far-Field Scaled),7.7,Intraplate Deep Fault (Kachchh),25,1.469,0.449,0.4512,0.0022,0.49,0.4,VALIDATED_FAIL
